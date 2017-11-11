@@ -5,6 +5,7 @@ import {
   graphiqlExpress,
 } from 'graphql-server-express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import { schema } from './src/schema';
 
@@ -18,6 +19,8 @@ server.use('/graphql', bodyParser.json(), graphqlExpress({
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }));
+
+server.use('*', cors({ origin: 'http://localhost:3000' }));
 
 server.listen(PORT, () => 
   console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphiql`)
